@@ -1,5 +1,10 @@
 
-ALTER PROCEDURE InsertUser
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[InsertUser]
   @PhoneNumber VARCHAR(20)
  ,@FirstName NVARCHAR(100)
  ,@LastName NVARCHAR(100)
@@ -11,9 +16,5 @@ BEGIN
 		VALUES(@FirstName, @LastName, @PhoneNumber, 0, 0)
 
 		SELECT SCOPE_IDENTITY()
-	END
-	ELSE
-	BEGIN
-		SELECT 0
 	END
 END
