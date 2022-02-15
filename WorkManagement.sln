@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.311
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManagement", "WorkManagement.csproj", "{5ED96A8A-28DC-49FE-84AA-01876956B124}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFA64AC7-8B4C-4B91-A274-01ACA3550763}
+	EndGlobalSection
+EndGlobal
