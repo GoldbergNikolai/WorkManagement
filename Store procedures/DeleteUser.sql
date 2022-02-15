@@ -1,12 +1,16 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
-CREATE PROCEDURE DeleteUser
- @PhoneNumber VARCHAR(20)
+ALTER PROCEDURE [dbo].[DeleteUser]
+ @UserId INT
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM Users WHERE PhoneNumber = @PhoneNumber )
+	IF EXISTS (SELECT 1 FROM Users WHERE @UserId = @UserId )
 	BEGIN
 		DELETE Users
-		WHERE PhoneNumber = @PhoneNumber
+		WHERE UserId = @UserId
 	END
 
 	SELECT @@ROWCOUNT 
