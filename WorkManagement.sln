@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.32126.311
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManagement", "WorkManagement.csproj", "{5ED96A8A-28DC-49FE-84AA-01876956B124}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserServices", "..\UserServices\UserServices.csproj", "{3D459A51-BFF3-4651-951B-CEFFDDF1716C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbFiles", "DbFiles", "{88764C9A-71F1-4F50-AEB8-BF2DE91A9499}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,10 @@ Global
 		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ED96A8A-28DC-49FE-84AA-01876956B124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D459A51-BFF3-4651-951B-CEFFDDF1716C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D459A51-BFF3-4651-951B-CEFFDDF1716C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D459A51-BFF3-4651-951B-CEFFDDF1716C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D459A51-BFF3-4651-951B-CEFFDDF1716C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

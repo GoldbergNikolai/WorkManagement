@@ -323,7 +323,6 @@ C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\ru\Microsoft.Co
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.csprojAssemblyReference.cache
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.AssemblyInfoInputs.cache
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.AssemblyInfo.cs
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.csproj.CoreCompileInputs.cache
@@ -351,3 +350,4 @@ C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.dll
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.pdb
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.genruntimeconfig.cache
+C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.csprojAssemblyReference.cache
