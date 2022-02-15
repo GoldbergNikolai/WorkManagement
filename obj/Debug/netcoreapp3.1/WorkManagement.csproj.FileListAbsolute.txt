@@ -350,3 +350,9 @@ C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.pdb
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.genruntimeconfig.cache
 C:\Users\Nik\source\repos\WorkManagement\obj\Debug\netcoreapp3.1\WorkManagement.csprojAssemblyReference.cache
+C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
