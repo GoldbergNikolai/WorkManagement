@@ -1,5 +1,4 @@
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\appsettings.Development.json
-C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\WorkManagement.exe
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\WorkManagement.deps.json
 C:\Users\Nik\source\repos\WorkManagement\bin\Debug\netcoreapp3.1\WorkManagement.runtimeconfig.json
