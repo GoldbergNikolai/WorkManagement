@@ -3,6 +3,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+--Procedure will delete a user with a matching UserId
+--Procedure will be used incase a misinput happens(wrong phone number etc.) 
+--input: UserId
+--output: Lines affected (INT)
+
 ALTER PROCEDURE [dbo].[DeleteUser]
  @UserId INT
 AS
