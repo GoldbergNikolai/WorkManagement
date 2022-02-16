@@ -3,6 +3,12 @@ ALTER PROCEDURE GetInvocations
 	@InvocationState VARCHAR(100) = NULL,
 	@ToolId INT = NULL
 AS 
+
+--Procedure will recieve UserId, InvocationState and ToolId(all of which can be NULL, incase user doesnt know what to fill) and will return all Tools with matching fields
+--Procedure will be used to display certain Tools (צ') that the user is interested in
+--input: UserId, InvocationState, ToolId (all can be null)
+--output: WorkOrderNumber, InvocationState, ToolId, UserId, Category, Reason, ToolName, InvocationDescription, Created, Updated
+
 BEGIN
 	IF (@UserId IS NOT NULL)
 	BEGIN
