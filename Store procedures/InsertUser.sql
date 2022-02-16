@@ -4,7 +4,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---COMMENTING IS NOT COMPLETED ON THIS PROCEDURE
+--COMMENTING IS NOT COMPLETE ON THIS PROCEDURE
 --Procedure will Insert a user into the Database
 --Procedure will be activated when an admin adds a user into the Database
 --input: PhoneNumber, FirstName, LastName
