@@ -220,11 +220,22 @@ namespace WorkManagement.Users.DAL
 
                         try
                         {
-                            userId = command.ExecuteNonQuery();
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    int userIdIndex = reader.GetOrdinal("UserId");
+
+                                    while (reader.Read())
+                                    {
+                                        userId = reader.IsDBNull(userIdIndex) ? 0 : reader.GetInt32(userIdIndex);
+                                    }
+                                }
+                            }
                         }
                         catch (Exception)
                         {
-                            userId = -1;
+                            userId = 0;
                         }
                         finally
                         {
@@ -238,7 +249,7 @@ namespace WorkManagement.Users.DAL
             }
             catch (Exception)
             {
-                userId = -1;
+                userId = 0;
             }
 
             return userId;
@@ -246,7 +257,42 @@ namespace WorkManagement.Users.DAL
 
         public bool UpdateAdminState(int userId, bool isAdmin)
         {
-            return false;
+            bool success = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connString))
+                {
+                    using (SqlCommand command = new SqlCommand("UpdateAdminState", conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserId", userId);
+                        command.Parameters.AddWithValue("@IsAdmin", isAdmin);
+                        conn.Open();
+
+                        try
+                        {
+                            success = command.ExecuteNonQuery() > 0;
+                        }
+                        catch (Exception)
+                        {
+                            success = false;
+                        }
+                        finally
+                        {
+                            if (conn.State != ConnectionState.Closed)
+                            {
+                                conn.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                success = false;
+            }
+
+            return success;
         }
 
         public bool UpdateUser(string phoneNumber, string firstName, string lastName)
@@ -293,7 +339,42 @@ namespace WorkManagement.Users.DAL
 
         public bool UpdateUserActivationState(int userId, bool active)
         {
-            return false;
+            bool success = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connString))
+                {
+                    using (SqlCommand command = new SqlCommand("UpdateUserActivationState", conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserId", userId);
+                        command.Parameters.AddWithValue("@Active", active);
+                        conn.Open();
+
+                        try
+                        {
+                            success = command.ExecuteNonQuery() > 0;
+                        }
+                        catch (Exception)
+                        {
+                            success = false;
+                        }
+                        finally
+                        {
+                            if (conn.State != ConnectionState.Closed)
+                            {
+                                conn.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                success = false;
+            }
+
+            return success;
         }
 
         #endregion

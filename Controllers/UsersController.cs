@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorkManagement.Models;
+using WorkManagement.Models.Shared;
 using WorkManagement.Users.Models;
 using WorkManagement.Users.Services;
 
@@ -15,46 +16,47 @@ namespace WorkManagement.Controllers
     {
         #region Private Members
 
-        private IUsersService m_userService = new UsersService();
+        private IUsersService _userService = new UsersService();
 
         #endregion
 
 
         #region Controllers
 
-        [HttpGet]
-        public JsonResult CheckIfUserExists(string phoneNumber)
-        {
-            var response = m_userService.CheckIfUserExists(phoneNumber);
-
-            return new JsonResult(response ?? new ResponseViewModel<UserViewModel>());
-        }
-
         [HttpDelete]
         public ActionResult DeleteUser(int userId)
         {
-            var response = m_userService.DeleteUser(userId);
+            var response = _userService.DeleteUser(userId);
 
             return new JsonResult(response ?? new ResponseViewModel<bool>());
         }
 
         [HttpGet]
-        public JsonResult GetUsers (int? userId = null, string phoneNumber = null, bool? active = null, bool? isAdmin = null, int? top = null, bool bringAll = false)
+        public ActionResult UsersPage() => View();
+
+        [HttpGet]
+        public ActionResult SearchUsers() => View();
+
+        [HttpGet]
+        public ActionResult GetUsers (int? userId = null, string phoneNumber = null, bool? active = null, bool? isAdmin = null, int? top = null, bool bringAll = false)
         {
             var response = new ResponseViewModel<List<UserViewModel>>();
 
             if (bringAll || userId != null || phoneNumber != null || active != null || isAdmin != null)
             {
-                response = m_userService.GetUsers(userId, phoneNumber, active, isAdmin, top, bringAll);
+                response = _userService.GetUsers(userId, phoneNumber, active, isAdmin, top, bringAll);
             }
 
             return new JsonResult (response ?? new ResponseViewModel<List<UserViewModel>>());
         }
 
+        [HttpGet]
+        public ActionResult InsertUser() => View();
+
         [HttpPost]
         public ActionResult InsertUser (string phoneNumber, string firstName, string lastName)
         {
-            var response = m_userService.InserUser(phoneNumber, firstName, lastName);
+            var response = _userService.InserUser(phoneNumber, firstName, lastName);
 
             return new JsonResult(response ?? new ResponseViewModel<int>());
         }
@@ -62,7 +64,21 @@ namespace WorkManagement.Controllers
         [HttpPatch]
         public ActionResult UpdateUser(string phoneNumber, string firstName, string lastName)
         {
-            var response = m_userService.UpdateUser(phoneNumber, firstName, lastName);
+            var response = _userService.UpdateUser(phoneNumber, firstName, lastName);
+
+            return new JsonResult(response ?? new ResponseViewModel<bool>());
+        }
+
+        public ActionResult UpdateUserActivationState (int userId, bool active)
+        {
+            var response = _userService.UpdateUserActivationState(userId, active);
+
+            return new JsonResult(response ?? new ResponseViewModel<bool>());
+        }
+
+        public ActionResult UpdateAdminState(int userId, bool isAdmin)
+        {
+            var response = _userService.UpdateAdminState(userId, isAdmin);
 
             return new JsonResult(response ?? new ResponseViewModel<bool>());
         }

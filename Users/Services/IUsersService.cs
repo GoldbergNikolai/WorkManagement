@@ -13,8 +13,8 @@ namespace WorkManagement.Users.Services
         ResponseViewModel<bool> DeleteUser(int userId);
         ResponseViewModel<List<UserViewModel>> GetUsers(int? userId, string phoneNumber, bool? active, bool? isAdmin, int? top, bool bringAll);
         ResponseViewModel<int> InserUser(string phoneNumber, string firstName, string lastName);
-        bool UpdateAdminState(int userId, bool isAdmin);
+        ResponseViewModel<bool> UpdateAdminState(int userId, bool isAdmin);
         ResponseViewModel<bool> UpdateUser(string phoneNumber, string firstName, string lastName);
-        bool UpdateUserActivationState(int userId, bool active);
+        ResponseViewModel<bool> UpdateUserActivationState(int userId, bool active);
     }
 }

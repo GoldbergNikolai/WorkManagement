@@ -1,0 +1,22 @@
+﻿@using WorkManagement.Models.Shared
+@{
+    ViewData["Title"] = "עמוד ניהול משתמשים";
+    var sessionUser = SessionHelper.SessionUser;
+}
+@if (sessionUser.IsAdmin)
+{
+    <div style="position: absolute;">
+        <input type="button" 
+               value="חיפוש משתמשים" 
+               class="btn-success" 
+               onclick="javascript: self.location = `@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("SearchUsers", "Users"))`" />
+        <input type="button" 
+               value="הוספת משתמשים" 
+               class="btn-primary" 
+               onclick="javascript: self.location = `@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("InsertUser", "Users"))`"/>
+    </div>
+}
+else
+{
+    <h3 style="color: red;">אין לך הרשאות לעמוד הזה</h3>
+}

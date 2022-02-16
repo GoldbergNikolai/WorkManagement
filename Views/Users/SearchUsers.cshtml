@@ -1,0 +1,179 @@
+﻿@using WorkManagement.Models.Shared
+@{
+    ViewData["Title"] = "חיפוש משתמשים";
+    var sessionUser = SessionHelper.SessionUser;
+}
+
+<div style="position: absolute;">
+    @if (sessionUser.IsAdmin)
+    {
+        <h3>חפש משתמשים</h3>
+
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <span>מזהה משתמש: </span>
+                        <input id="userId" type="text" class="numbers-only to-disable" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span>מספר טלפון: </span>
+                        <input id="phoneNumber" type="text" class="numbers-only to-disable" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span>הבא רק משתמשים פעילים: </span>
+                        <input id="active" type="radio" name="active" class="to-disable" />
+                    </div>
+                    <div>
+                        <span>הבא רק משתמשים הלא פעילים: </span>
+                        <input id="notActive" type="radio" name="active" class="to-disable" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span>הבא רק את אדמיניסטרטורים: </span>
+                        <input id="isAdmin" type="radio" name="isAdmin" class="to-disable" />
+                    </div>
+                    <div>
+                        <span>הבא רק את הלא אדמיניסטרטורים: </span>
+                        <input id="isNotAdmin" type="radio" name="isAdmin" class="to-disable" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span>הבא את כל המשתמשים: </span>
+                        <input id="bringAll" type="checkbox" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="חפש משתמשים" id="usersSearchButton" class="btn-primary" />
+        <div id="usersError" style="color: red; font-size: 14px; min-height: 10px; visibility: hidden;"></div>
+
+        <table id="usersTable" style="visibility: hidden;">
+            <tr>
+                <th class="th-style">מזהה משתמש</th>
+                <th class="th-style">מספר טלפון</th>
+                <th class="th-style">שם</th>
+                <th class="th-style">שם משפחה</th>
+                <th class="th-style">פעיל</th>
+                <th class="th-style">אדמין</th>
+                <th class="th-style">מחיקת משתמש</th>
+            </tr>
+            <tbody id="users"></tbody>
+        </table>
+    }
+    else
+    {
+        <h3 style="color: red;">אין לך הרשאות לעמוד הזה</h3>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#usersSearchButton").on("click", function () {
+            var usersTable = $("#usersTable");
+            var userId = $("#userId").val();
+            var phoneNumber = $("#phoneNumber").val();
+            var bringAll = $("#bringAll");
+            var usersError = $("#usersError");
+
+            $(usersTable).css("visibility", "hidden");
+            $(usersError).css("visibility", "hidden");
+            $("#users").empty();
+
+            if ($(bringAll).is(":checked") || userId != "" || $(phoneNumber).val() != "") {
+                $.ajax({
+                    url: "@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("GetUsers", "Users"))",
+                    type: "get",
+                    data: {
+                        userId: userId != "" ? parseInt(userId) : null,
+                        phoneNumber: phoneNumber != "" ? phoneNumber : null,
+                        active: $("#active").is(":checked") ? true : ($("#notActive").is(":checked") ? false : null),
+                        isAdmin: $("#isAdmin").is(":checked") ? true : ($("#isNotAdmin").is(":checked") ? false : null),
+                        bringAll: $(bringAll).is(":checked") ? true : false
+                    },
+                    success: function (result) {
+                        if (result.data != null) {
+                            if (result.errorDesc != null && result.errorDesc != "") {
+                                $(usersError).text(result.errorDesc);
+                                $(usersError).css("visibility", "visible");
+                            }
+                            else if (result.data.length > 0) {
+                                $("#usersTableRow").tmpl(result.data).appendTo($("#users"));
+                                $(usersTable).css("visibility", "visible");
+                            }
+                        }
+                        else if (result.errorDesc != null && result.errorDesc != "") {
+                            $(usersError).text(result.errorDesc);
+                            $(usersError).css("visibility", "visible");
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#bringAll").on("click", function () {
+            if ($(this).is(":checked")) {
+                $(".to-disable").prop("disabled", true);
+            }
+            else {
+                $(".to-disable").prop("disabled", false);
+            }
+        });
+    });
+
+    function deleteUser (element) {
+            var userId = $(element).data("row-id");
+            var rowToRemove = $("#userRowId_" + userId);
+
+            if (userId != "") {
+                $.ajax({
+                    url: "@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("DeleteUser", "Users"))",
+                    type: "delete",
+                    data: {
+                        userId: parseInt(userId)
+                    },
+                    success: function (result) {
+                        if (result.data != null) {
+                            if (result.errorDesc != null && result.errorDesc != "") {
+                                $(usersError).text(result.errorDesc);
+                                $(usersError).css("visibility", "visible");
+                            }
+                            else if (result.data) {
+                                $(rowToRemove).remove();
+                            }
+                        }
+                        else if (result.errorDesc != null && result.errorDesc != "") {
+                            $(usersError).text(result.errorDesc);
+                            $(usersError).css("visibility", "visible");
+                        }
+                    }
+                });
+            }
+        };
+</script>
+
+<script type="text/x-jquery-tmpl" id="usersTableRow">
+    <tr id="userRowId_${userId}">
+        <td class="td-style">${userId}</td>
+        <td class="td-style">${phoneNumber}</td>
+        <td class="td-style">${firstName}</td>
+        <td class="td-style">${lastName}</td>
+        <td class="td-style" style="{{if active }} background-color:green {{else}} background-color:red {{/if}};">{{if active }} כן {{else}} לא {{/if}}</td>
+        <td class="td-style" style="{{if isAdmin }} background-color:green {{else}} background-color:red {{/if}};">{{if isAdmin }} כן {{else}} לא {{/if}}</td>
+        <td class="td-style"><input type="button" value="מחק" class="btn-danger" data-row-id="${userId}" onclick="deleteUser($(this));" /></td>
+    </tr>
+</script>

@@ -1,8 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using WorkManagement.Models.Shared
+@{
+    ViewData["Title"] = "עמוד הבית";
+    var sessionUser = SessionHelper.SessionUser;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (sessionUser == null)
+{
+    <div class="text-center">
+        <h1 class="display-4">ברוכים הבאים לאתר</h1>
+        <h1 class="display-4" style="font-weight: bold;">ניהול עבודה</h1>
+    </div>
+}

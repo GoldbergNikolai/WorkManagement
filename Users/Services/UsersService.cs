@@ -109,12 +109,20 @@ namespace WorkManagement.Users.Services
             var response = new ResponseViewModel<int>();
 
             response.Data = m_userBL.InserUser(phoneNumber, firstName, lastName);
-            response.ErrorDesc = response.Data == -1 ? $"משתמש עם טלפון {phoneNumber} כבר קיים במעכרת" : string.Empty;
+            response.ErrorDesc = response.Data > 0 ? string.Empty : $"משתמש עם טלפון {phoneNumber} כבר קיים במעכרת";
 
             return response;
         }
 
-        public bool UpdateAdminState(int userId, bool isAdmin) => m_userBL.UpdateAdminState(userId, isAdmin);
+        public ResponseViewModel<bool> UpdateAdminState(int userId, bool isAdmin)
+        {
+            var response = new ResponseViewModel<bool>();
+
+            response.Data = m_userBL.UpdateAdminState(userId, isAdmin);
+            response.ErrorDesc = response.Data ? string.Empty : "הפיכת משתמש לאדמיניסטרטור לא הצליחה.";
+
+            return response;
+        }
 
         public ResponseViewModel<bool> UpdateUser(string phoneNumber, string firstName, string lastName)
         {
@@ -126,7 +134,15 @@ namespace WorkManagement.Users.Services
             return response;
         }
 
-        public bool UpdateUserActivationState(int userId, bool active) => m_userBL.UpdateUserActivationState(userId, active);
+        public ResponseViewModel<bool> UpdateUserActivationState(int userId, bool active)
+        {
+            var response = new ResponseViewModel<bool>();
+
+            response.Data = m_userBL.UpdateUserActivationState(userId, active);
+            response.ErrorDesc = response.Data ? string.Empty : "הפעלת משתמש לא הצליחה.";
+
+            return response;
+        }
 
         #endregion
     }

@@ -1,0 +1,110 @@
+﻿@using WorkManagement.Models.Shared
+@{
+    ViewData["Title"] = "הוספת משתמש";
+    var sessionUser = SessionHelper.SessionUser;
+}
+
+<div style="position: absolute;">
+    @if (sessionUser.IsAdmin)
+    {
+        <h3>הוספת משתמש</h3>
+
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <span style="color: red;">(*)</span>
+                        <span>מספר טלפון: </span>
+                        <input id="phoneNumber" type="text" class="numbers-only" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span style="color: red;">(*)</span>
+                        <span>שם םרטי: </span>
+                        <input id="firstName" type="text" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span style="color: red;">(*)</span>
+                        <span>שם משפחה: </span>
+                        <input id="lastName" type="text" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <span style="color: red;">* - שדה חובה</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <input type="button" value="צור משתמש" id="insertUserButton" class="btn-primary" />
+            <div id="insertUserError" style="color: red; font-size: 14px; min-height: 10px; visibility: hidden;"></div>
+        </div>
+        <h4 id="insertUserSuccessMessage" style="color: green; visibility: hidden;">יצירת משתמש הסתיימה בהצלחה. מזהה משתמש הוא: </h4>
+    }
+    else
+    {
+        <h3 style="color: red;">אין לך הרשאות לעמוד הזה</h3>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#insertUserButton").on("click", function () {
+            var phoneNumber = $("#phoneNumber").val();
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+            var insertUserError = $("#insertUserError");
+            var insertUserSuccessMessage = $("#insertUserSuccessMessage");
+
+            $(insertUserError).css("visibility", "hidden");
+            $(insertUserSuccessMessage).css("visibility", "hidden");
+
+            if (phoneNumber != "" && firstName != "" && lastName != "") {
+                $.ajax({
+                    url: "@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("InsertUser", "Users"))",
+                    type: "post",
+                    data: {
+                        phoneNumber: phoneNumber,
+                        firstName: firstName,
+                        lastName: lastName
+                    },
+                    success: function (result) {
+                        if (result.data != null) {
+                            if (result.errorDesc != null && result.errorDesc != "") {
+                                $(insertUserError).text(result.errorDesc);
+                                $(insertUserError).css("visibility", "visible");
+                            }
+                            else if (result.data > 0) {
+                                $(insertUserSuccessMessage).text($(insertUserSuccessMessage).text() + result.data);
+                                $(insertUserSuccessMessage).css("visibility", "visible");
+                            }
+                        }
+                        else if (result.errorDesc != null && result.errorDesc != "") {
+                            $(insertUserError).text(result.errorDesc);
+                            $(insertUserError).css("visibility", "visible");
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#bringAll").on("click", function () {
+            if ($(this).is(":checked")) {
+                $(".to-disable").prop("disabled", true);
+            }
+            else {
+                $(".to-disable").prop("disabled", false);
+            }
+        });
+    });
+</script>

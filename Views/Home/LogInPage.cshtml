@@ -1,0 +1,48 @@
+﻿@using WorkManagement.Models.Shared;
+@{
+    ViewData["Title"] = "כניסה";
+}
+
+<div style="position: absolute;">
+    <span style="color: darkslategrey;">נא הכנס מספר טלפון לזיהוי: </span>
+    <input type="tel" id="phoneNumber" class="numbers-only"/>
+    <input type="button" value="היכנס" id="loginButton" class="btn-primary"/>
+    <div id="loginError" style="color: red; font-size: 14px; min-height: 10px; visibility: hidden;"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loginButton").on("click", function () {
+            var phoneNumber = $("#phoneNumber").val();
+            var loginError = $("#loginError");
+            $(loginError).css("visibility", "hidden");
+
+            if ($(phoneNumber).val() != "") {
+                $.ajax({
+                    url: "@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("LogIn", "Home"))",
+                    type: "post",
+                    data: {
+                        phoneNumber: phoneNumber
+                    },
+                    success: function (result) {
+                        if (result.data != null) {
+                            if (result.errorDesc != null && result.errorDesc != "") {
+                                $(loginError).text(result.errorDesc);
+                                $(loginError).css("visibility", "visible");
+                            }
+                            else if (result.data != null && result.data.userId > 0) {
+                                self.location = "@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("Index", "Home"))";
+                            }
+                        }
+                        else if (result.errorDesc != null && result.errorDesc != "") {
+                            $(loginError).text(result.errorDesc);
+                            $(loginError).css("visibility", "visible");
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
