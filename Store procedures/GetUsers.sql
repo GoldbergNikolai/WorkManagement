@@ -3,6 +3,12 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+--Procedure will recieve all parameters(parameters can be send empty) and will return users with matching fields
+--Procedure will be used when searching for Users(to give admin permissions or giving a user access to the site)
+--input: UserId, PhoneNumber, Active, IsAdmin, Top, BringAll
+--output: UserId, PhoneNumber, Active, IsAdmin, Top, BringAll
+                   
 ALTER PROCEDURE [dbo].[GetUsers]
 	@UserId INT = NULL,
 	@PhoneNumber VARCHAR(20) = NULL,
