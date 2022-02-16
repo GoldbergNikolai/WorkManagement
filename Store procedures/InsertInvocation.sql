@@ -17,8 +17,8 @@ BEGIN
 
 	IF NOT EXISTS (SELECT 1 FROM Invocations WHERE WorkOrderNumber = @WorkOrderNumber)
 	BEGIN
-		INSERT INTO Invocations(WorkOrderNumber, InvocationState, ToolId, UserId, Category, Reason, ToolName, InvocationDescription, Created)
-		VALUES(@WorkOrderNumber, @InvocationState, @ToolId, @UserId, @Category, @Reason, @ToolName, @InvocationDescription, GETDATE())
+		INSERT INTO Invocations(WorkOrderNumber, InvocationState, ToolId, UserId, Category, Reason, ToolName, InvocationDescription, Created, Updated)
+		VALUES(@WorkOrderNumber, @InvocationState, @ToolId, @UserId, @Category, @Reason, @ToolName, @InvocationDescription, GETDATE(), GETDATE())
 		SELECT 1
 	END
 	ELSE
