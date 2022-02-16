@@ -4,6 +4,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+--COMMENTING IS NOT COMPLETE ON THIS PROCEDURE
+--Procedure will update a certain users details incase name/lastname was misspelled etc.
+--Procedure can be executed by user
+--input: PhoneNumber, FirstName, LastName
+--output: 1- details changed successfully
+--	  NULL- Phone number not found
+
 ALTER PROCEDURE [dbo].[UpdateUser]
   @PhoneNumber VARCHAR(20)
  ,@FirstName NVARCHAR(100)

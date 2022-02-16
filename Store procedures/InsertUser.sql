@@ -4,6 +4,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+--COMMENTING IS NOT COMPLETE ON THIS PROCEDURE
+--Procedure will Insert a user into the Database
+--Procedure will be activated when an admin adds a user into the Database
+--input: PhoneNumber, FirstName, LastName
+--output: 1- user was added into the Database
+--        NULL- user already exists in the Database(not added)
+
 ALTER PROCEDURE [dbo].[InsertUser]
   @PhoneNumber VARCHAR(20)
  ,@FirstName NVARCHAR(100)
