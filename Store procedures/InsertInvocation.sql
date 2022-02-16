@@ -3,6 +3,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+--Procedure will be used in order to register an invocation into the Database
+--Procedure will be activated once a user decides to sign tool(צ') into the Database
+--input: WorkOrderNumber, InvocationState, ToolId, UserId, Category, Reason, ToolName, InvocationDescription, Created, Updated
+--output: 1- Invocation inserted into Database
+--	  0- WorkOrderNumber(פק"ע) is already in the Database
+
+
 ALTER PROCEDURE [dbo].[InsertInvocation]
 	@WorkOrderNumber INT,
 	@InvocationState VARCHAR(100),
