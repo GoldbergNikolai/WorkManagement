@@ -3,6 +3,15 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+--Procedure will update the Invocation status and Invocation Description fields on a certain chosen WorkOrderNumber(פק"ע)
+--Procedure will add the new description to the the old description creating a log of all necessary data
+--Procedure will be executed by Users in order to give current status on certain tool
+--input: WorkOrderNumber, InvocationState, InvocationDescription
+--output: 1- Update was completed successfully 
+--	  0- Description update failed
+--	  2- State update failed
+
 ALTER PROCEDURE [dbo].[UpdateInvocation]
 	@WorkOrderNumber INT,
 	@InvocationState VARCHAR(100),
@@ -16,12 +25,19 @@ BEGIN
 	
 	UPDATE Invocations 
 	SET InvocationDescription = @InvocationDescriptionToAlter 
-	   ,Updated = GETDATE()
+	   ,Updated = GETDATE(), InvocationState = @InvocationState --LAST LINE ("InvocationState = @InvocationState") WAS ADDED IN GIT AND WASNT TESTED, TESTING TO BE DONE
 	WHERE WorkOrderNumber = @WorkOrderNumber
 
 	IF ((SELECT InvocationDescription FROM Invocations WHERE WorkOrderNumber = @WorkOrderNumber) = @InvocationDescriptionToAlter)
 	BEGIN 
-		SELECT 1
+		IF ((SELECT InvocationState FROM Invocations WHERE WorkOrderNumber = @WorkOrderNumber) = @InvocationStateToAlter)
+		BEGIN
+			SELECT 1
+		END
+		ELSE
+		BEGIN
+			SELECT 2
+		END
 	END
 	ELSE
 	BEGIN
