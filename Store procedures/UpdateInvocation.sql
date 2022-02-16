@@ -1,4 +1,9 @@
-ALTER PROCEDURE UpdateInvocation
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdateInvocation]
 	@WorkOrderNumber INT,
 	@InvocationState VARCHAR(100),
 	@InvocationDescription NVARCHAR(4000)
@@ -11,6 +16,7 @@ BEGIN
 	
 	UPDATE Invocations 
 	SET InvocationDescription = @InvocationDescriptionToAlter 
+	   ,Updated = GETDATE()
 	WHERE WorkOrderNumber = @WorkOrderNumber
 
 	IF ((SELECT InvocationDescription FROM Invocations WHERE WorkOrderNumber = @WorkOrderNumber) = @InvocationDescriptionToAlter)
