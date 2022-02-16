@@ -1,1 +1,5 @@
+https://www.postman.com/
+SignUp for free and start using.
 
+Here is a shared link with APIs I already implemented: https://www.getpostman.com/collections/ea24e053e7323fc7bf85
+After you got Postnam on yout PC just enter this link and it will create a collection of APIs.
