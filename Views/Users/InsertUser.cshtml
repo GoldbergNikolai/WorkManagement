@@ -12,41 +12,45 @@
         <table>
             <tr>
                 <td>
-                    <div>
+                    <div class="align-right">
+                        <input id="phoneNumber" type="text" class="numbers-only form-validation" />
+                        <span>מספר טלפון</span>
                         <span style="color: red;">(*)</span>
-                        <span>מספר טלפון: </span>
-                        <input id="phoneNumber" type="text" class="numbers-only" />
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div>
+                    <div class="align-right">
+                        <input id="firstName" type="text" class="form-validation" />
+                        <span>שם םרטי</span>
                         <span style="color: red;">(*)</span>
-                        <span>שם םרטי: </span>
-                        <input id="firstName" type="text" />
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div>
+                    <div class="align-right">
+                        <input id="lastName" type="text" class="form-validation" />
+                        <span>שם משפחה</span>
                         <span style="color: red;">(*)</span>
-                        <span>שם משפחה: </span>
-                        <input id="lastName" type="text" />
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div>
+                    <div class="align-right">
                         <span style="color: red;">* - שדה חובה</span>
                     </div>
                 </td>
             </tr>
         </table>
         <div>
-            <input type="button" value="צור משתמש" id="insertUserButton" class="btn-primary" />
+            <input type="button"
+                   value="צור משתמש"
+                   id="insertUserButton"
+                   class="btn-primary"
+                   disabled style="background-color: grey; border-color: grey;" />
             <div id="insertUserError" style="color: red; font-size: 14px; min-height: 10px; visibility: hidden;"></div>
         </div>
         <h4 id="insertUserSuccessMessage" style="color: green; visibility: hidden;">יצירת משתמש הסתיימה בהצלחה. מזהה משתמש הוא: </h4>
@@ -98,12 +102,16 @@
             }
         });
 
-        $("#bringAll").on("click", function () {
-            if ($(this).is(":checked")) {
-                $(".to-disable").prop("disabled", true);
+        $(".form-validation").on("input", function () {
+            if ($("#phoneNumber").val() != "" && $("#firstName").val() != "" && $("#lastName").val() != "") {
+                $("#insertUserButton").prop("disabled", false);
+                $("#insertUserButton").css("background-color", "#007bff");
+                $("#insertUserButton").css("border-color", "#007bff");
             }
             else {
-                $(".to-disable").prop("disabled", false);
+                $("#insertUserButton").prop("disabled", true);
+                $("#insertUserButton").css("background-color", "grey");
+                $("#insertUserButton").css("border-color", "grey");
             }
         });
     });
