@@ -1,7 +1,8 @@
-﻿@using WorkManagement.Models.Shared
+﻿@model WorkManagement.Models.Shared.SessionHelper;
+@using WorkManagement.Models.Shared;
 @{
     ViewData["Title"] = "הוספת משתמש";
-    var sessionUser = SessionHelper.SessionUser;
+    var sessionUser = Model;
 }
 
 <div style="position: absolute;">

@@ -1,5 +1,6 @@
-﻿@using WorkManagement.Models.Shared
-@{ var sessionUser = SessionHelper.SessionUser;}
+﻿@model WorkManagement.Models.Shared.SessionHelper;
+@using WorkManagement.Models.Shared
+@{ var sessionUser = Model;}
 
 <!DOCTYPE html>
 <html lang="he">
@@ -18,7 +19,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @if (sessionUser != null)
+                    @if (sessionUser.UserId > 0)
                     {
                         <span class="nav navbar-text navbar-right" style="color: black;">@string.Format(", {0} {1}", sessionUser.LastName, sessionUser.FirstName)</span>
                         <span class="nav navbar-text navbar-right">שלום לך </span>
@@ -31,7 +32,7 @@
                                asp-controller="Home"
                                asp-action="Index">בית</a>
                         </li>
-                        @if (sessionUser != null)
+                        @if (sessionUser.UserId > 0)
                         {
                             @if (sessionUser.IsAdmin)
                             {
@@ -74,7 +75,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-    </body>
+</body>
 </html>
 
 <style type="text/css">
@@ -109,5 +110,5 @@
 
         });
 
-    });  
+    });
 </script>

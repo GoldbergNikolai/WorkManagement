@@ -1,7 +1,8 @@
-﻿@using WorkManagement.Models.Shared
+﻿@model WorkManagement.Models.Shared.SessionHelper;
+@using WorkManagement.Models.Shared;
 @{
     ViewData["Title"] = "חיפוש משתמשים";
-    var sessionUser = SessionHelper.SessionUser;
+    var sessionUser = Model;
 }
 
 <div style="position: absolute;">
@@ -158,11 +159,14 @@
         });
     });
 
-    function deleteUser (element) {
-            var userId = $(element).data("row-id");
-            var rowToRemove = $("#userRowId_" + userId);
+    function deleteUser(element) {
+        var userId = $(element).data("row-id");
+        var firstName = $(element).data("first-name");
+        var lastName = $(element).data("last-name");
+        var rowToRemove = $("#userRowId_" + userId);
 
-            if (userId != "") {
+        if (userId != "") {
+            if (confirm("האם אתם בטוחים שאתם רוצים למחוק את המשתמש: " + firstName + " " + lastName)) {
                 $.ajax({
                     url: "@string.Format("{0}{1}", DomainHelper.BaseDomainUrl, Url.Action("DeleteUser", "Users"))",
                     type: "delete",
@@ -186,7 +190,8 @@
                     }
                 });
             }
-        };
+        }
+    };
 </script>
 
 <script type="text/x-jquery-tmpl" id="usersTableRow">
@@ -197,6 +202,14 @@
         <td class="td-style">${lastName}</td>
         <td class="td-style" style="{{if active }} background-color:green {{else}} background-color:red {{/if}};">{{if active }} כן {{else}} לא {{/if}}</td>
         <td class="td-style" style="{{if isAdmin }} background-color:green {{else}} background-color:red {{/if}};">{{if isAdmin }} כן {{else}} לא {{/if}}</td>
-        <td class="td-style"><input type="button" value="מחק" class="btn-danger" data-row-id="${userId}" onclick="deleteUser($(this));" /></td>
+        <td class="td-style">
+            <input type="button" 
+                   value="מחק" 
+                   class="btn-danger" 
+                   data-row-id="${userId}" 
+                   data-first-name="${firstName}" 
+                   data-last-name="${lastName}"
+                   onclick="deleteUser($(this));" />
+        </td>
     </tr>
 </script>

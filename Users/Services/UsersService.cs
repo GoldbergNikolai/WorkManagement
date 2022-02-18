@@ -63,16 +63,9 @@ namespace WorkManagement.Users.Services
         {
             var response = new ResponseViewModel<bool>();
 
-            if (userId != SessionHelper.SessionUser.UserId)
-            {
-                response.Data = m_userBL.DeleteUser(userId);
-                response.ErrorDesc = response.Data ? string.Empty : "מחיקת משתמש לא הצליחה.";
-            }
-            else
-            {
-                response.ErrorDesc = response.Data ? string.Empty : "אי אפשר למחוק את עמצך.";
-            }
-
+            response.Data = m_userBL.DeleteUser(userId);
+            response.ErrorDesc = response.Data ? string.Empty : "מחיקת משתמש לא הצליחה.";
+           
             return response;
         }
 

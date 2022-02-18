@@ -71,7 +71,7 @@ namespace WorkManagement.Users.DAL
                                 }
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             userDTO = new UserDTO();
                         }

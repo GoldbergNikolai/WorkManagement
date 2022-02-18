@@ -1,7 +1,7 @@
-﻿@using WorkManagement.Models.Shared
+﻿@model WorkManagement.Models.Shared.SessionHelper;
 @{
     ViewData["Title"] = "עמוד הבית";
-    var sessionUser = SessionHelper.SessionUser;
+    var sessionUser = Model;
 }
 
 @if (sessionUser == null)

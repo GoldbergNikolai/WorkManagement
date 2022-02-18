@@ -26,16 +26,25 @@ namespace WorkManagement.Controllers
         [HttpDelete]
         public ActionResult DeleteUser(int userId)
         {
-            var response = _userService.DeleteUser(userId);
+            var response = new ResponseViewModel<bool>();
+
+            if (GetSession().UserId == userId)
+            {
+                response.ErrorDesc = response.Data ? string.Empty : "אי אפשר למחוק את עמצך.";
+            }
+            else
+            {
+                response = _userService.DeleteUser(userId);
+            }
 
             return new JsonResult(response ?? new ResponseViewModel<bool>());
         }
 
         [HttpGet]
-        public ActionResult UsersPage() => View();
+        public ActionResult UsersPage() => View(GetSession());
 
         [HttpGet]
-        public ActionResult SearchUsers() => View();
+        public ActionResult SearchUsers() => View(GetSession());
 
         [HttpGet]
         public ActionResult GetUsers (int? userId = null, string phoneNumber = null, bool? active = null, bool? isAdmin = null, int? top = null, bool bringAll = false)
@@ -51,7 +60,7 @@ namespace WorkManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult InsertUser() => View();
+        public ActionResult InsertUser() => View(GetSession());
 
         [HttpPost]
         public ActionResult InsertUser (string phoneNumber, string firstName, string lastName)
@@ -69,6 +78,7 @@ namespace WorkManagement.Controllers
             return new JsonResult(response ?? new ResponseViewModel<bool>());
         }
 
+        [HttpPatch]
         public ActionResult UpdateUserActivationState (int userId, bool active)
         {
             var response = _userService.UpdateUserActivationState(userId, active);
@@ -76,11 +86,33 @@ namespace WorkManagement.Controllers
             return new JsonResult(response ?? new ResponseViewModel<bool>());
         }
 
+        [HttpPatch]
         public ActionResult UpdateAdminState(int userId, bool isAdmin)
         {
             var response = _userService.UpdateAdminState(userId, isAdmin);
 
             return new JsonResult(response ?? new ResponseViewModel<bool>());
+        }
+
+        #endregion
+
+
+        #region Private Methods
+
+        public SessionHelper GetSession()
+        {
+            var session = new SessionHelper();
+
+            if (HttpContext.Session.Keys.Any())
+            {
+                session.UserId = (int)HttpContext.Session.GetInt32("UserId");
+                session.Active = (int)HttpContext.Session.GetInt32("Active") == 1;
+                session.IsAdmin = (int)HttpContext.Session.GetInt32("IsAdmin") == 1;
+                session.FirstName = HttpContext.Session.GetString("FirstName");
+                session.LastName = HttpContext.Session.GetString("LastName");
+            }
+
+            return session;
         }
 
         #endregion
